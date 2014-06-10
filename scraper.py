@@ -47,7 +47,7 @@ def scrape_set(code):
 
     with open('sets/{}.json'.format(code), 'w') as f:
         print(cards)
-        json.dump(cards, f)
+        json.dump(cards, f, ensure_ascii=False)
     return len(cards)
 
 
