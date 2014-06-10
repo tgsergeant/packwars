@@ -1,4 +1,4 @@
-sets = [
-    'ths',
-    'm14'
-]
+sets = {
+    'ths': "Theros",
+    'm14': "Magic 2014"
+}

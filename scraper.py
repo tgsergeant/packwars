@@ -37,10 +37,7 @@ def scrape_set(code):
         data = row.contents
         #import pdb; pdb.set_trace()
         # Parse an individual card
-        card = {
-            'id': int(data[1].text),
-            'name': data[3].text,
-        }
+        card = data[3].text
         try:
             rarity = rarity_to_id[data[9].text]
         except KeyError:

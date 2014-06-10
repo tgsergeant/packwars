@@ -44,17 +44,17 @@ def generate():
         #Generate the 13 main cards
         for rarity in main_dist:
             card = random.choice(cards[rarity])
-            pack[card["name"]] += 1
+            pack[card] += 1
 
         # Generate the rare
         rarity = random.choice(rare_dist)
         card = random.choice(cards[rarity])
-        pack[card['name']] += 1
+        pack[card] += 1
 
         # Generate the 15th card
         rarity = random.choice(extra_dist)
         card = random.choice(cards[rarity])
-        pack[card["name"]] += 1
+        pack[card] += 1
 
         pack.update(get_land())
 
