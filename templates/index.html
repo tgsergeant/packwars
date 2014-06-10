@@ -25,8 +25,28 @@
         </label>
     </div>
 
+    <div class="custom-label">
+        <p>Or <a href="#" class="custom-button">mix and match multiple sets</a>.</p>
+    </div>
+
+    <div class="custom hide">
+        <label>Comma separated set codes:
+            <input type="text" name="sets" class="sets-input" value="ths,bng,jou">
+        </label>
+    </div>
+
     <input type="submit" value="Generate" class="button radius"/>
-</form>1
+</form>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+       $(".custom-button").on('click', function () {
+           $(".custom").removeClass('hide');
+           $(".sets-input").select();
+       })
+    });
+</script>
 
 </body>
 </html>
