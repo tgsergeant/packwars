@@ -28,41 +28,57 @@ def get_land():
 
 @app.route('/generate')
 def generate():
-    set = request.args.get('set', 'm14')
-    if set not in sets:
-        return 'No such set', 404
+    gen_sets = []
+    arg_sets = request.args.get('sets', None)
+    arg_single_set = request.args.get('set', None)
+    if arg_sets:
+        gen_sets = arg_sets.split(',')
+    elif arg_single_set:
+        gen_sets = [arg_single_set]
+    else:
+        return "No set specified", 400
 
-    with open('sets/{}.json'.format(set), 'r') as data:
-        js = json.load(data)
-        cards = {
-            1: js["1"],
-            2: js["2"],
-            3: js["3"],
-            4: js["4"]
-        }
-        pack = collections.defaultdict(int)
-        #Generate the 13 main cards
-        for rarity in main_dist:
-            card = random.choice(cards[rarity])
-            pack[card] += 1
+    print("Generating with sets {}".format(str(gen_sets)))
 
-        # Generate the rare
-        rarity = random.choice(rare_dist)
+    cards = {
+        1: [],
+        2: [],
+        3: [],
+        4: []
+    }
+
+    for set in gen_sets:
+        if set not in sets:
+            return "No such set: {}".format(set), 404
+
+        with open('sets/{}.json'.format(set), 'r') as data:
+            js = json.load(data)
+            for rarity in js:
+                cards[int(rarity)].extend(js[rarity])
+
+    pack = collections.defaultdict(int)
+    #Generate the 13 main cards
+    for rarity in main_dist:
         card = random.choice(cards[rarity])
         pack[card] += 1
 
-        # Generate the 15th card
-        rarity = random.choice(extra_dist)
-        card = random.choice(cards[rarity])
-        pack[card] += 1
+    # Generate the rare
+    rarity = random.choice(rare_dist)
+    card = random.choice(cards[rarity])
+    pack[card] += 1
 
-        pack.update(get_land())
+    # Generate the 15th card
+    rarity = random.choice(extra_dist)
+    card = random.choice(cards[rarity])
+    pack[card] += 1
 
-        deck = render_template_string('packwars.cod', cards=pack)
-        response = make_response(deck)
-        response.headers["Content-Disposition"] = "attachment; filename=packwars.cod"
+    pack.update(get_land())
 
-        return response
+    deck = render_template_string('packwars.cod', cards=pack)
+    response = make_response(deck)
+    response.headers["Content-Disposition"] = "attachment; filename=packwars.cod"
+
+    return response
 
 if __name__ == '__main__':
     app.run(debug=True)
