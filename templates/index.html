@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pack Wars Generator</title>
+    <link rel="stylesheet" href="/static/normalize.css" />
+    <link rel="stylesheet" href="/static/foundation.min.css" />
+    <link rel="stylesheet" href="/static/style.css" />
+</head>
+
+
+<body>
+
+<h1>Pack Wars</h1>
+
+<p>Automatically generate a <a href="https://www.wizards.com/magic/tcg/resources.aspx?x=mtg/tcg/resources/formats-casual">Pack Wars</a> deck for use in <a href="http://www.woogerworks.com/">Cockatrice</a>.</p>
+
+<form action="/generate" method="get">
+    <div class="preselect">
+        <label>Set:
+            <select name="set">
+                {% for set in sets %}
+                    <option value="{{ set }}">{{ sets[set] }} ({{ set }})</option>
+                {% endfor %}
+            </select>
+        </label>
+    </div>
+
+    <input type="submit" value="Generate" class="button radius"/>
+</form>1
+
+</body>
+</html>

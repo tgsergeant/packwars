@@ -1,0 +1,9 @@
+body {
+    background-color: #d5d5d5;
+    text-align: center;
+    padding-top: 50px;
+}
+
+select {
+    max-width: 300px;
+}

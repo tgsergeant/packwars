@@ -2,7 +2,7 @@ import collections
 import json
 import os
 import random
-from flask import Flask, request, render_template_string
+from flask import Flask, request, render_template
 from flask.helpers import make_response
 from util import sets
 
@@ -16,7 +16,7 @@ extra_dist = ([1] * 10 + [2] * 3 + [3]) * 7 + [4]
 
 @app.route('/')
 def index():
-    return 'Hello World'
+    return render_template('index.html', sets=sets)
 
 
 def get_land():
@@ -74,7 +74,7 @@ def generate():
 
     pack.update(get_land())
 
-    deck = render_template_string('packwars.cod', cards=pack)
+    deck = render_template('packwars.cod', cards=pack)
     response = make_response(deck)
     response.headers["Content-Disposition"] = "attachment; filename=packwars.cod"
 
