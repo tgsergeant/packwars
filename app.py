@@ -32,13 +32,11 @@ def generate():
     arg_sets = request.args.get('sets', None)
     arg_single_set = request.args.get('set', None)
     if arg_sets:
-        gen_sets = arg_sets.split(',')
+        gen_sets = arg_sets.lower().split(',')
     elif arg_single_set:
         gen_sets = [arg_single_set]
     else:
         return "No set specified", 400
-
-    print("Generating with sets {}".format(str(gen_sets)))
 
     cards = {
         1: [],
@@ -74,9 +72,11 @@ def generate():
 
     pack.update(get_land())
 
-    deck = render_template('packwars.cod', cards=pack)
+    name = "packwars-{}".format(''.join(gen_sets))
+
+    deck = render_template('packwars.cod', cards=pack, name=name)
     response = make_response(deck)
-    response.headers["Content-Disposition"] = "attachment; filename=packwars.cod"
+    response.headers["Content-Disposition"] = "attachment; filename={}.cod".format(name)
 
     return response
 

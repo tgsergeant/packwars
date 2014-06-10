@@ -34,16 +34,19 @@
                 {% endfor %}
             </select>
         </label>
-    </div>
-
-    <div class="custom-label">
-        <p>Or <a href="#" class="custom-button">mix and match multiple sets</a>.</p>
+        <div class="custom-label">
+            <p>Or <a href="#" class="custom-button">mix and match multiple sets</a>.</p>
+        </div>
     </div>
 
     <div class="custom hide">
         <label>Comma separated set codes:
-            <input type="text" name="sets" class="sets-input" value="ths,bng,jou">
+            <input type="text" name="sets" class="sets-input">
         </label>
+
+        <div class="preselect-label">
+            <p>Or <a href="#" class="preselect-button">select a single set</a>.</p>
+        </div>
     </div>
 
     <input type="submit" value="Generate" class="button radius"/>
@@ -54,8 +57,22 @@
     $(document).ready(function() {
        $(".custom-button").on('click', function () {
            $(".custom").removeClass('hide');
+           $(".sets-input").val("ths,bng,jou");
            $(".sets-input").select();
-       })
+
+           $(".preselect").addClass('hide');
+
+           return false;
+       });
+
+        $(".preselect-button").on('click', function () {
+            $(".preselect").removeClass('hide');
+            $(".sets-input").val("");
+
+            $(".custom").addClass('hide');
+
+            return false;
+        });
     });
 </script>
 
