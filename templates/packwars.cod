@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cockatrice_deck version="1">
+<deckname></deckname>
+<comments></comments>
+<zone name="main">
+{% for card in cards %}
+<card number="{{ cards[card] }}" price="0" name="{{card}}"/>
+{% endfor %}
+</zone>
+</cockatrice_deck>
